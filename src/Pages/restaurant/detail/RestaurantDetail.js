@@ -39,7 +39,7 @@ const RestaurantDetail = () => {
         if(idRestaurant && !restaurantDetail.length && !isDataFetched) {
             getDataRestaurantById(idRestaurant);
         }
-    }, [isDataFetched])
+    }, [restaurantDetail, idRestaurant, isDataFetched])
 
     const currencyFormat = (num) => {
         return 'Rp ' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
@@ -117,7 +117,7 @@ const RestaurantDetail = () => {
                                                     onClick={() => handleMinus(data.id)} 
                                                     onMouseOver={({target})=>target.style.cursor="pointer"}
                                                 />
-                                                <input id={data.id} type="number" defaultValue={0} style={{width: 15}} onChange={(event) => handleChange(event, data.id)} />
+                                                <input id={data.id} type="number" defaultValue={0} style={{width: 30}} onChange={(event) => handleChange(event, data.id)} />
                                                 <AiFillPlusCircle 
                                                     size={25} 
                                                     onClick={() => handlePlus(data.id)} 
