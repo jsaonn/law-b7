@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+.containerParent {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.containerContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Rubik', sans-serif;
+    margin: 0 5%;
+}
+
+.header {
+    color: #000;
+    font-weight: 700;
+    font-size: 50px;
+    text-align: left;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 50px;
+    column-gap: 50px;
+}
+
+.card {
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 0.7s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.restaurantImage {
+    height: 150px;
+    border-radius: 10px;
+}
