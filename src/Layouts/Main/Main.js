@@ -1,5 +1,5 @@
 import React from "react";
-import MainRoutes from "../../Routes/MainRoutes";
+import MainRoutes from "../../routes/MainRoutes";
 
 const Main = () => {
 
