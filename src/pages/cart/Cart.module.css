@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+.containerParent {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.containerContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Rubik', sans-serif;
+    margin: 0 15%;
+}
+
+.header {
+    color: #000;
+    font-weight: 700;
+    font-size: 50px;
+    text-align: left;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 50px;
+    column-gap: 50px;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    /* background-color: #9ecdff; */
+    width: 100%;
+    /* padding: 20px 30px; */
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 0.7s;
+}
+
+.menuImage {
+    height: 150px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.cardMenuImage {
+    justify-content: start;
+    padding: 5px 5px;
+}
+
+.cardMenuDetail {
+    margin-left: 20px;
+    padding: 5px 0;
+}
+
+.menuName {
+    font-weight: bold;
+    font-size: 30px;
+    padding-bottom: 10px;
+}
+
+.restaurantName {
+    font-weight: lighter;
+    font-size: 20px;
+}
+
+.cardMenuPrice {
+    margin-left: auto;
+    margin-right: 10px;
+    padding: 5px 0;
+}
+
+.menuPrice {
+    font-weight: bold;
+    font-size: 23px;
+    padding-bottom: 8px;
+}
+
+.inputForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    padding-bottom: 8px;
+}
+
+.deleteMenuFromCartButton {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.totalPriceContainer {
+    width: 100%;
+}
+
+.totalPriceLabel {
+    font-weight: bold;
+    font-size: 30px;
+    justify-content: start;
+}
+
+.totalPriceData {
+    margin-left: auto;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.payButton {
+    width: 100%;
+    padding: 1%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: lightgray;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 10%;
+}
+
+.centered {
+    width: 100%;
+    text-align: center;
+    padding: 25%;
+}
+
+.noItem {
+    font-weight: bold;
+    font-size: 25px;
+}
