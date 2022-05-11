@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import StarRatingComponent from 'react-star-rating-component';
 import styles from "./RestaurantDetail.module.css";
 import restoPict from "../../../assets/restaurant-img.jpg";
 import menuPict from "../../../assets/menu-img.jpg";
 import { BiTime, BiArrowBack } from 'react-icons/bi';
 import { AiOutlineHome, AiOutlinePhone, AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { apiGetRestaurantDataById } from "../__axios__";
+import { UserContext } from "../../auth/UserContext";
 
 const RestaurantDetail = () => {
     let navigate = useNavigate();
@@ -77,6 +78,9 @@ const RestaurantDetail = () => {
     const handleAdd = (idx) => {
         document.getElementById(idx).value = 0;
     }
+
+    const { user } = useContext(UserContext);
+    if (user === null) {return <Navigate to='/login' />}
 
     return(
         <>
