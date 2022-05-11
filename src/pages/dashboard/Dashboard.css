@@ -1,0 +1,53 @@
+.dash {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 70px 80px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.dash a {
+    text-decoration: none;
+}
+
+.dash-header {
+    color: #000;
+    font-weight: 700;
+    font-size: 50px;
+    padding-bottom: 10px;
+}
+
+.dash-buttons {
+    padding-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+}
+
+.dash-btn-block {
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+}
+
+.dash-btn {
+    background-color: #5dd7b4;
+}
+.dash-btn:hover {
+    background-color: #4fcba8;
+}
+
+.dash-btn-dark {
+    background-color: #2aa582;
+}
+
+.dash-btn-dark:hover {
+    background-color: #209674;
+}
