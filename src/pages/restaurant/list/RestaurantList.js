@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./RestaurantList.module.css";
 import StarRatingComponent from 'react-star-rating-component';
 import pict from "../../../assets/restaurant-img.jpg";
 import { apiGetAllRestaurantData } from "../__axios__";
-import { useNavigate, Navigate } from "react-router-dom";
-import { UserContext } from "../../auth/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const RestaurantList = () => {
 
@@ -31,9 +30,6 @@ const RestaurantList = () => {
     const handleDetail = (idx) => {
         navigate(`/restaurant/${idx}/`);
     }
-
-    const { user } = useContext(UserContext);
-    if (user === null) {return <Navigate to='/login' />}
 
     return(
         <>
