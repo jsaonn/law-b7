@@ -24,10 +24,6 @@ const RestaurantList = () => {
         }
     }, [dataRestaurant, isDataFetched]);
 
-
-    const { user } = useContext(UserContext);
-    if (user === null) {return <Navigate to='/login' />}
-
     return(
         <>
             <div className={`${styles.containerParent}`}>
