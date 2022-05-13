@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+.containerParent {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.containerContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Rubik', sans-serif;
+    margin: 0 15%;
+}
+
+.header {
+    color: #000;
+    font-weight: 700;
+    font-size: 50px;
+    text-align: left;
+}
+
+.detailHeader {
+    color: #000;
+    font-weight: 700;
+    font-size: 40px;
+    text-align: left;
+    width: 100%;
+    padding: 40px 0 0 0;
+}
+
+.detailSubHeader {
+    color: #000;
+    font-weight: 700;
+    font-size: 25px;
+    text-align: left;
+    width: 100%;
+    padding-bottom: 40px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 50px;
+    column-gap: 50px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.card {
+    padding: 10px 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.cardDetails {
+    padding: 10px 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: 0.7s;
+    width: 100%;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.restaurantImage {
+    height: 150px;
+    border-radius: 10px;
+}
+
+.cardOrderInfo {
+    margin-left: 20px;
+    padding: 5px 0;
+}
+
+.cardOrderDetailInfo {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderID {
+    font-weight: lighter;
+    font-size: 15px;
+}
+
+.restaurantName {
+    font-weight: bold;
+    font-size: 30px;
+    padding-bottom: 10px;
+}
+
+.orderName {
+    font-weight: bold;
+    font-size: 26px;
+    margin: 0;
+}
+
+.status {
+    font-weight: bold;
+    font-size: 23px;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.price {
+    margin-left: auto;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    /* margin-top: auto;
+    margin-bottom: 10px; */
+}
+
+.cardOrderImage {
+    justify-content: start;
+    padding: 5px 5px;
+}
+
+.menuPrice {
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.qtyDisplay {
+    font-weight: lighter;
+    font-size: 14px;
+    text-align: right;
+}
+
+.orderDetailContainer {
+    width: 100%;
+}
+
+.orderDetailLabel {
+    font-weight: bold;
+    font-size: 30px;
+    justify-content: start;
+}
+
+.orderDetailData {
+    margin-left: auto;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.orderDetailStatus {
+    margin-left: auto;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgb(235, 183, 52);
+}
