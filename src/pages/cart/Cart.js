@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Cart.module.css";
 import menuPict from "../../assets/menu-img.jpg";
 import { CartMenuCard } from "./CartMenuCard";
+import PaymentButton from "../../components/PaymentButton";
 
 const Cart = () => {
     const dummy = [
@@ -104,9 +105,7 @@ const Cart = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={`${styles.payButton}`}>
-                                    Pay
-                                </div>
+                                <PaymentButton styling={`${styles.payButton}`} />
                             </>
                         ) : (
                             <>
