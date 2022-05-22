@@ -3,34 +3,10 @@ import styles from "./Cart.module.css";
 import menuPict from "../../assets/menu-img.jpg";
 import { CartMenuCard } from "./CartMenuCard";
 import PaymentButton from "../../components/PaymentButton";
+import { apiGetCartMenuList } from "./__axios__";
+
 
 const Cart = () => {
-    const dummy = [
-        {
-            'id': 0,
-            'menuImage': menuPict,
-            'menuName': 'Hamburger',
-            'restaurantName': 'Sabwei',
-            'menuPrice': 35000,
-            'quantity': 2,
-        },
-        {
-            'id': 1,
-            'menuImage': menuPict,
-            'menuName': 'Ayam Goreng',
-            'restaurantName': 'Mekdi',
-            'menuPrice': 27500,
-            'quantity': 5,
-        },
-        {
-            'id': 2,
-            'menuImage': menuPict,
-            'menuName': 'Spageti',
-            'restaurantName': 'Pizahat',
-            'menuPrice': 30000,
-            'quantity': 1,
-        }
-    ]
 
     const [isDataFetched1, setIsDataFetched1] = useState(false)
     const [isDataFetched2, setIsDataFetched2] = useState(false)
@@ -41,15 +17,20 @@ const Cart = () => {
         return 'Rp ' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
     };
 
-    const getOrderData = () => {
-        setOrder(dummy)
+    const getOrder = () => {
+        apiGetCartMenuList().then(
+            result => {
+                console.log(result.data)
+                setOrder(result.data.cart_menu_list)
+            }
+        )
     }
 
     const calcTotalPriceOrder = () => {
         let initTotalPrice = 0;
 
         order.map((data) => {
-            initTotalPrice += (parseInt(data.quantity)*parseInt(data.menuPrice))
+            initTotalPrice += (parseInt(data.quantity)*parseInt(data.menu.price))
         })
 
         setTotalPrice(initTotalPrice)
@@ -57,7 +38,7 @@ const Cart = () => {
 
     useEffect(() => {
         if(!isDataFetched1) {
-            getOrderData()
+            getOrder()
             setIsDataFetched1(true)
         }
         if(isDataFetched1 && !isDataFetched2) {
@@ -84,10 +65,11 @@ const Cart = () => {
                                     return (
                                         <CartMenuCard
                                             id={data['id']}
-                                            menuImage={data.menuImage}
-                                            menuName={data.menuName}
-                                            restaurantName={data.restaurantName}
-                                            menuPrice={data.menuPrice}
+                                            menuId={data.menu.id}
+                                            menuImage={menuPict}
+                                            menuName={data.menu.name}
+                                            restaurantName={data.restaurant.name}
+                                            menuPrice={data.menu.price}
                                             initQuantity={data.quantity}
                                             order={order}
                                             setOrder={setOrder}

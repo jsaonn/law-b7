@@ -8,6 +8,7 @@ import { AiOutlineHome, AiOutlinePhone, AiFillMinusCircle, AiFillPlusCircle } fr
 import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { apiGetRestaurantDataById } from "../__axios__";
 import { UserContext } from "../../auth/UserContext";
+import { addMenu } from "../../cart/__axios__";
 
 const RestaurantDetail = () => {
     let navigate = useNavigate();
@@ -76,7 +77,12 @@ const RestaurantDetail = () => {
     }
 
     const handleAdd = (idx) => {
-        document.getElementById(idx).value = 0;
+        let quantity = document.getElementById(idx).value
+        addMenu(idx, quantity).then(
+            () => {
+                document.getElementById(idx).value = 0;
+            }
+        ).catch(error => console.log(error))
     }
 
     const { user } = useContext(UserContext);
