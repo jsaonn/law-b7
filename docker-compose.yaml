@@ -4,9 +4,6 @@ services:
     stdin_open: true
     build:
       dockerfile: Dockerfile
-      context: .
-    volumes:
-      - /app/node_modules
-      - .:/app
+      context: ./frontend
     ports:
-      - '80:3000'
+      - '3000:3000'
