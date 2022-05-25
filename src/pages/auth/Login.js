@@ -35,7 +35,8 @@ const Login = () => {
                     'JWT ' + res.data.access;
                 navigate('/');
             }, (err) => {
-                alert("Terdapat error saat login")
+                console.log(err.response.data);
+                alert("Terdapat error saat login. Pastikan email dan password Anda sudah benar.")
             });
     };
 
