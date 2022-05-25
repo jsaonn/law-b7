@@ -34,6 +34,8 @@ const Login = () => {
                 axiosInstance.defaults.headers['Authorization'] =
                     'JWT ' + res.data.access;
                 navigate('/');
+            }, (err) => {
+                alert("Terdapat error saat login")
             });
     };
 
