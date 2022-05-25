@@ -41,7 +41,14 @@ const Register = () => {
             .then((res) => {
                 navigate('/login');
             }, (err) => {
-                alert("Terdapat error saat register")
+                console.log(err.response.data);
+                let err_response = Object.values(err.response.data);
+                let err_msg = ""
+                for (var msg in err_response) {
+                    err_msg = err_msg + err_response[msg] + "\n";
+                }
+                err_msg = err_msg.slice(0, -1);
+                alert("Terdapat error saat register. \n" + err_msg)
             });
         } else {
             alert("Pastikan semua field terisi")
