@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./Cart.module.css";
 import { AiFillMinusCircle, AiFillPlusCircle, AiTwotoneDelete } from 'react-icons/ai';
+import { apiSetMenuQty, apiDeleteMenu } from "./__axios__";
+import { UserContext } from "../auth/UserContext";
 
-export const CartMenuCard = ({id, menuImage, menuName, restaurantName, menuPrice, initQuantity, order, setOrder, calcTotalPriceOrder }) => {
+export const CartMenuCard = ({id, menuId, menuImage, menuName, restaurantName, menuPrice, initQuantity, order, setOrder, calcTotalPriceOrder }) => {
+    const { user } = useContext(UserContext);
+
     const [quantityDisplay, setQuantityDisplay] = useState(initQuantity)
 
     useEffect(() => {
@@ -16,51 +20,68 @@ export const CartMenuCard = ({id, menuImage, menuName, restaurantName, menuPrice
 
     const handleChange = event => {
         let tempOrder = order
-        tempOrder.map(order => {
-            if(order['id'] == id) {
-                order['quantity'] = parseInt(event.target.value) || 0
+        let newQuantity = parseInt(event.target.value)
+        apiSetMenuQty(menuId, newQuantity, user).then(
+            () => {
+                tempOrder.map(order => {
+                    if(order['id'] == id) {
+                        order['quantity'] = newQuantity || 0
+                    }
+                })
+                setQuantityDisplay(newQuantity)
+                setOrder(tempOrder)
+                calcTotalPriceOrder()
             }
-        })
-        setQuantityDisplay(event.target.value)
-        setOrder(tempOrder)
-        calcTotalPriceOrder()
+        ).catch(error => console.log(error))
     }
 
     const handleMinus = quantityDisplay => {
         if(parseInt(quantityDisplay) > 0) {
             let newQuantity = parseInt(quantityDisplay)-1
-            let tempOrder = order
-            tempOrder.map(order => {
-                if(order['id'] == id) {
-                    order['quantity'] = newQuantity
+            apiSetMenuQty(menuId, newQuantity, user).then(
+                () => {
+                    let tempOrder = order
+                    tempOrder.map(order => {
+                        if(order['id'] == id) {
+                            order['quantity'] = newQuantity
+                        }
+                    })
+                    setQuantityDisplay(newQuantity)
+                    setOrder(tempOrder)
+                    calcTotalPriceOrder()
                 }
-            })
-            setQuantityDisplay(newQuantity)
-            setOrder(tempOrder)
-            calcTotalPriceOrder()
+            ).catch(error => console.log(error))
         }
     }
 
     const handlePlus = quantityDisplay => {
         let newQuantity = parseInt(quantityDisplay)+1
-        let tempOrder = order
-        tempOrder.map(order => {
-            if(order['id'] == id) {
-                order['quantity'] = newQuantity
+        apiSetMenuQty(menuId, newQuantity, user).then(
+            () => {
+                let tempOrder = order
+                tempOrder.map(order => {
+                    if(order['id'] == id) {
+                        order['quantity'] = newQuantity
+                    }
+                })
+                setQuantityDisplay(newQuantity)
+                setOrder(tempOrder)
+                calcTotalPriceOrder()
             }
-        })
-        setQuantityDisplay(newQuantity)
-        setOrder(tempOrder)
-        calcTotalPriceOrder()
+        ).catch(error => console.log(error))
     }
 
     const handleDeleteItem = () => {
         let tempOrder = order
-        tempOrder = tempOrder.filter((currentOrder) => {
-            return currentOrder.id != id
-        })
-        setOrder(tempOrder)
-        calcTotalPriceOrder()
+        apiDeleteMenu(menuId, user).then(
+            () => {
+                tempOrder = tempOrder.filter((currentOrder) => {
+                    return currentOrder.id != id
+                })
+                setOrder(tempOrder)
+                calcTotalPriceOrder()
+            }
+        ).catch(error => console.log(error))
     }
 
     return (
