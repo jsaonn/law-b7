@@ -30,10 +30,17 @@ const Login = () => {
             .then((res) => {
                 localStorage.setItem('access_token', res.data.access);
                 localStorage.setItem('refresh_token', res.data.refresh);
-                setUser(jwt_decode(localStorage.getItem('access_token')));
                 axiosInstance.defaults.headers['Authorization'] =
                     'JWT ' + res.data.access;
-                navigate('/');
+                axiosInstance.get('user/').then((res) => {
+                    let loggedUser = res.data;
+                    loggedUser['user_id'] = jwt_decode(localStorage.getItem('access_token'))['user_id'];
+                    setUser(loggedUser);
+                    navigate('/');
+                }, (err) => {
+                    console.log(err.response.data);
+                    alert("Terdapat error fetch data user. Coba kembali beberapa saat lagi.")
+                })
             }, (err) => {
                 console.log(err.response.data);
                 alert("Terdapat error saat login. Pastikan email dan password Anda sudah benar.")
