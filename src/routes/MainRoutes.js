@@ -33,7 +33,7 @@ const MainRoutes = () => {
                         <Route path="/restaurant/:idRestaurant" element={<RestaurantDetail />} />
                         <Route path="/cart" element={<Cart />} />
                         <Route path="/order" element={<Order />} />
-                        <Route path="/order-details" element={<OrderDetails />} />
+                        <Route path="/order-details/:idOrder" element={<OrderDetails />} />
                     </>
                 )
             }
