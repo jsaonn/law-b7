@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://law-b7-auth.herokuapp.com/api/';
+const baseURL = 'https://api-gateway-law.herokuapp.com/auth/api/';
 
 const axiosInstance = axios.create({
 	baseURL: baseURL,
