@@ -6,7 +6,7 @@ import menuPict from "../../../assets/menu-img.jpg";
 import { BiTime, BiArrowBack } from 'react-icons/bi';
 import { AiOutlineHome, AiOutlinePhone, AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai';
 import { useNavigate, useParams, Navigate } from "react-router-dom";
-import { apiGetRestaurantDataById } from "../__axios__";
+import { apiGetRestaurantDataById } from "../axiosRestaurant";
 import { UserContext } from "../../auth/UserContext";
 
 const RestaurantDetail = () => {

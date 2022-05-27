@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./RestaurantList.module.css";
 import StarRatingComponent from 'react-star-rating-component';
 import pict from "../../../assets/restaurant-img.jpg";
-import { apiGetAllRestaurantData } from "../__axios__";
+import { apiGetAllRestaurantData } from "../axiosRestaurant";
 import { useNavigate } from "react-router-dom";
 
 const RestaurantList = () => {

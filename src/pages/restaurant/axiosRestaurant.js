@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL_HEROKU = "https://restaurant-service-law.herokuapp.com"
+const API_URL_HEROKU = "https://api-gateway-law.herokuapp.com/restaurant/"
 
 export default {API_URL_HEROKU}
 
@@ -16,5 +16,9 @@ export const apiGetAllRestaurantData = () => {
 }
 
 export const apiGetRestaurantDataById = (id) => {
-    return axiosClient.get(`/restaurant-data/${parseInt(id)}/`);
+    return axiosClient.get(`restaurant-data/${parseInt(id)}/`);
+}
+
+export const apiGetMenuDetail = (id) => {
+    return axiosClient.get(`restaurant-data/menu/${parseInt(id)}/`);
 }

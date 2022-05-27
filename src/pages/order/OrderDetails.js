@@ -1,62 +1,84 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState} from "react";
 import styles from "./Order.module.css";
-import pict from "../../assets/menu-img.jpg";
-import { apiGetAllRestaurantData } from "../restaurant/__axios__";
+import { apiGetOrderById } from "./axiosOrder";
+import { apiGetMenuDetail } from "../restaurant/axiosRestaurant";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 
-const RestaurantList = () => {
+const OrderDetail = () => {
 
-    const [dataRestaurant, setDataRestaurant] = useState([]);
+    let { idOrder } = useParams();
+    const [dataOrder, setDataOrder] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
+    const [dataMenu, setDataMenu] = useState([])
 
     useEffect(() => {
-        const getDataRestaurant = () => {
+        const getDataOrder = () => {
 
-            apiGetAllRestaurantData().then(
+            apiGetOrderById(idOrder).then(
                 result => {
-                    setDataRestaurant(result.data.data);
+                    setDataOrder(result.data.data);
                     setIsDataFetched(true);
+
+                    let listMenu = result.data.data['orderMenuData']
+                    let temp = []
+                    let promises = []
+                    for (let i=0; i<listMenu.length; i++) {
+                        let id = listMenu[i]['menu_id'];
+                        promises.push(
+                            apiGetMenuDetail(id).then(response => {
+                                temp.push(response);
+                            })
+                        );
+                        // apiGetMenuDetail(id).then(
+                        //     result => {
+                        //         temp.push(result.data.data);
+                        //     }
+                        // )
+                    }
+                    // Promise.all(promises).then(
+                    //     result => {
+                    //         temp.push(result);
+                    //     }
+                    // )
+                    Promise.all(promises).then(()=>setDataMenu(temp))
+                    // setDataMenu(temp)
                 }
             )
         }
 
-        if(!dataRestaurant.length && !isDataFetched) {
-            getDataRestaurant();
+        if(!dataOrder.length && !isDataFetched, !dataMenu.length) {
+            getDataOrder();
         }
-    }, [dataRestaurant, isDataFetched]);
+    }, [dataOrder, isDataFetched, dataMenu]);
 
     return(
         <>
             <div className={`${styles.containerParent}`}>
                 <div className={`${styles.containerContent}`}>
                     <div className={`${styles.detailHeader}`}>
-                        Order ID: 007
+                        Order ID: {dataOrder.id}
                     </div>
                     <div className={`${styles.detailSubHeader}`}>
-                        Mekdi
+                        {dataOrder.restaurant_name}
                     </div>
                     <div className={`${styles.content}`}>
                         {
-                            dataRestaurant.map((data) => {
+                            dataMenu &&
+                            dataMenu.map((data, index) => {
                                 return(
-                                    <div className={`${styles.cardDetails}`}>
+                                    <div className={`${styles.cardDetails}`} key={index}>
                                         <div className={`${styles.row}`}>
-                                            <div className={`${styles.cardOrderImage}`}>
-                                                <img src={pict} alt="restaurant pict" className={`${styles.restaurantImage}`} />  
-                                            </div>
                                             <div className={`${styles.cardOrderDetailInfo}`}>
                                                 <div className={`${styles.column}`}>
                                                     <div className={`${styles.orderName}`}>
-                                                        {data.name}
+                                                        {data.data.data.name}
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className={`${styles.price}`}>
                                                 <div className={`${styles.column}`}>
                                                     <div className={`${styles.menuPrice}`}>
-                                                        @Rp 35.000
-                                                    </div>
-                                                    <div className={`${styles.qtyDisplay}`}>
-                                                        Qty: x
+                                                        @Rp {data.data.data.price}
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,20 +90,10 @@ const RestaurantList = () => {
                         <div className={`${styles.orderDetailContainer}`}>
                             <div className={`${styles.row}`}>
                                 <div className={`${styles.orderDetailLabel}`}>
-                                    Total
-                                </div>
-                                <div className={`${styles.orderDetailData}`}>
-                                    Rp 300.000
-                                </div>
-                            </div>
-                        </div>
-                        <div className={`${styles.orderDetailContainer}`}>
-                            <div className={`${styles.row}`}>
-                                <div className={`${styles.orderDetailLabel}`}>
                                     Status
                                 </div>
                                 <div className={`${styles.orderDetailStatus}`}>
-                                    On Going
+                                    {dataOrder.status}
                                 </div>
                             </div>
                         </div>
@@ -92,4 +104,4 @@ const RestaurantList = () => {
     )
 }
 
-export default RestaurantList
+export default OrderDetail

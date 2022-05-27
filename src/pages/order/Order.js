@@ -1,36 +1,40 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./Order.module.css";
-import pict from "../../assets/restaurant-img.jpg";
-import { apiGetAllRestaurantData } from "../restaurant/__axios__";
-import { useNavigate, Navigate } from "react-router-dom";
+import { apiGetOrderByUserId } from "./axiosOrder";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../auth/UserContext";
 
-const RestaurantList = () => {
+const Order = () => {
 
+    const { user } = useContext(UserContext);
+    const currentUserID = user['user_id'];
     let navigate = useNavigate();
-    const [dataRestaurant, setDataRestaurant] = useState([]);
+    const [dataOrder, setDataOrder] = useState([]);
     const [isDataFetched, setIsDataFetched] = useState(false);
 
     useEffect(() => {
-        const getDataRestaurant = () => {
-
-            apiGetAllRestaurantData().then(
+        const getDataOrder = () => {
+            apiGetOrderByUserId(currentUserID).then(
                 result => {
-                    setDataRestaurant(result.data.data);
+                    setDataOrder(result.data.data);
                     setIsDataFetched(true);
                 }
             )
         }
 
-        if(!dataRestaurant.length && !isDataFetched) {
-            getDataRestaurant();
+        if(!dataOrder.length && !isDataFetched ) {
+            getDataOrder();
         }
-    }, [dataRestaurant, isDataFetched]);
 
-    const handleDetail = () => {
-        navigate(`/order-details`);
+
+    }, [dataOrder, isDataFetched]);
+
+    const handleDetail = (id) => {
+        navigate(`/order-details/${id}`);
     }
 
     return(
+       isDataFetched && (
         <>
             <div className={`${styles.containerParent}`}>
                 <div className={`${styles.containerContent}`}>
@@ -39,26 +43,23 @@ const RestaurantList = () => {
                     </div>
                     <div className={`${styles.content}`}>
                         {
-                            dataRestaurant.map((data) => {
+                            dataOrder.map((data, index) => {
                                 return(
-                                    <div className={`${styles.card}`} onClick={() => handleDetail()}>
+                                    <div className={`${styles.card}`} onClick={() => handleDetail(data.id)} key={index}>
                                         <div className={`${styles.row}`}>
-                                            <div className={`${styles.cardOrderImage}`}>
-                                                <img src={pict} alt="restaurant pict" className={`${styles.restaurantImage}`} />  
-                                            </div>
                                             <div className={`${styles.cardOrderInfo}`}>
                                                 <div className={`${styles.column}`}>
                                                     <div className={`${styles.restaurantName}`}>
-                                                        {data.name}
+                                                        {data.restaurant_name}
                                                     </div>
                                                     <div className={`${styles.orderID}`}>
-                                                        Order ID: 007
+                                                        Order ID: {data.id}
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className={`${styles.status}`}>
                                                 <div className={`${styles.column}`}>
-                                                    On Going
+                                                    {data.status}
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +71,8 @@ const RestaurantList = () => {
                 </div>
             </div>
         </>
+        )
     )
 }
 
-export default RestaurantList
+export default Order
