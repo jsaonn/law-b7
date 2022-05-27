@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "./Cart.module.css";
 import menuPict from "../../assets/menu-img.jpg";
 import { CartMenuCard } from "./CartMenuCard";
 import PaymentButton from "../../components/PaymentButton";
 import { apiGetCartMenuList } from "./__axios__";
+import { UserContext } from "../auth/UserContext";
 
 
 const Cart = () => {
+    const { user } = useContext(UserContext);
+
+    console.log('user:', user)
 
     const [isDataFetched1, setIsDataFetched1] = useState(false)
     const [isDataFetched2, setIsDataFetched2] = useState(false)
@@ -18,7 +22,7 @@ const Cart = () => {
     };
 
     const getOrder = () => {
-        apiGetCartMenuList().then(
+        apiGetCartMenuList(user).then(
             result => {
                 console.log(result.data)
                 setOrder(result.data.cart_menu_list)

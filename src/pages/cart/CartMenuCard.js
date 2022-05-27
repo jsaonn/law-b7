@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./Cart.module.css";
 import { AiFillMinusCircle, AiFillPlusCircle, AiTwotoneDelete } from 'react-icons/ai';
 import { apiSetMenuQty, apiDeleteMenu } from "./__axios__";
+import { UserContext } from "../auth/UserContext";
 
 export const CartMenuCard = ({id, menuId, menuImage, menuName, restaurantName, menuPrice, initQuantity, order, setOrder, calcTotalPriceOrder }) => {
+    const { user } = useContext(UserContext);
+
     const [quantityDisplay, setQuantityDisplay] = useState(initQuantity)
 
     useEffect(() => {
@@ -18,7 +21,7 @@ export const CartMenuCard = ({id, menuId, menuImage, menuName, restaurantName, m
     const handleChange = event => {
         let tempOrder = order
         let newQuantity = parseInt(event.target.value)
-        apiSetMenuQty(menuId, newQuantity).then(
+        apiSetMenuQty(menuId, newQuantity, user).then(
             () => {
                 tempOrder.map(order => {
                     if(order['id'] == id) {
@@ -35,7 +38,7 @@ export const CartMenuCard = ({id, menuId, menuImage, menuName, restaurantName, m
     const handleMinus = quantityDisplay => {
         if(parseInt(quantityDisplay) > 0) {
             let newQuantity = parseInt(quantityDisplay)-1
-            apiSetMenuQty(menuId, newQuantity).then(
+            apiSetMenuQty(menuId, newQuantity, user).then(
                 () => {
                     let tempOrder = order
                     tempOrder.map(order => {
@@ -53,7 +56,7 @@ export const CartMenuCard = ({id, menuId, menuImage, menuName, restaurantName, m
 
     const handlePlus = quantityDisplay => {
         let newQuantity = parseInt(quantityDisplay)+1
-        apiSetMenuQty(menuId, newQuantity).then(
+        apiSetMenuQty(menuId, newQuantity, user).then(
             () => {
                 let tempOrder = order
                 tempOrder.map(order => {
@@ -70,7 +73,7 @@ export const CartMenuCard = ({id, menuId, menuImage, menuName, restaurantName, m
 
     const handleDeleteItem = () => {
         let tempOrder = order
-        apiDeleteMenu(menuId).then(
+        apiDeleteMenu(menuId, user).then(
             () => {
                 tempOrder = tempOrder.filter((currentOrder) => {
                     return currentOrder.id != id
