@@ -36,6 +36,7 @@ const Login = () => {
                     let loggedUser = res.data;
                     loggedUser['user_id'] = jwt_decode(localStorage.getItem('access_token'))['user_id'];
                     setUser(loggedUser);
+                    localStorage.setItem('user', JSON.stringify(loggedUser));
                     navigate('/');
                 }, (err) => {
                     console.log(err.response.data);
