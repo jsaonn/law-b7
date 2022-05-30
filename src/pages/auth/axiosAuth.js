@@ -71,12 +71,14 @@ axiosInstance.interceptors.response.use(
                     console.log('Refresh token telah expired', tokenParts.exp, now);
                     localStorage.removeItem('access_token');
                     localStorage.removeItem('refresh_token');
+                    localStorage.removeItem('user');
                     window.location.href = '/login';
                 }
             } else {
                 console.log('Refresh token tidak tersedia.');
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
+                localStorage.removeItem('user');
                 window.location.href = '/login';
             }
         }

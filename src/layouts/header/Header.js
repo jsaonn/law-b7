@@ -15,6 +15,7 @@ function Header() {
         console.log(response);
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user');
         axiosInstance.defaults.headers['Authorization'] = null;
         setUser(null);
         navigate('/login');
