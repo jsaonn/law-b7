@@ -78,7 +78,7 @@ const RestaurantDetail = () => {
 
     const handleAdd = (idx) => {
         let quantity = document.getElementById(idx).value
-        addMenu(idx, quantity).then(
+        addMenu(idx, quantity, user).then(
             () => {
                 document.getElementById(idx).value = 0;
             }
