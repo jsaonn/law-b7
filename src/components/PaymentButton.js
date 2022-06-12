@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { UserContext } from "../pages/auth/UserContext";
+import { getSnapToken } from "./__axios__";
 
-const PaymentButton = ({ styling }) => {
+const PaymentButton = ({ cartId, totalPrice, styling }) => {
+  const { user } = useContext(UserContext);
+
   useEffect(() => {
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
-    const myMidtransClientKey = "SB-Mid-client-uXK-LaKryIf4xHNg";
 
     let scriptTag = document.createElement("script");
     scriptTag.src = midtransScriptUrl;
@@ -15,7 +18,19 @@ const PaymentButton = ({ styling }) => {
   }, []);
 
   const handlePay = () => {
-    window.snap.pay('1e77663e-3d55-478a-99bd-9d14e79d879f')
+    getSnapToken(cartId, totalPrice, user)
+      .then((res) => {
+        console.log("token:", res.data.token);
+        window.snap.pay(res.data.token, {
+          onPending: (res) => {
+            console.log("INI PENDING", res);
+          },
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Pembayaran gagal");
+      });
   };
 
   return (
