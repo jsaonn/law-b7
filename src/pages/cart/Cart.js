@@ -15,6 +15,7 @@ const Cart = () => {
     const [isDataFetched1, setIsDataFetched1] = useState(false)
     const [isDataFetched2, setIsDataFetched2] = useState(false)
     const [order, setOrder] = useState([])
+    const [cartId, setCartId] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0)
 
     const currencyFormat = (num) => {
@@ -25,6 +26,7 @@ const Cart = () => {
         apiGetCartMenuList(user).then(
             result => {
                 console.log(result.data)
+                setCartId(result.data.id)
                 setOrder(result.data.cart_menu_list)
             }
         )
@@ -91,7 +93,7 @@ const Cart = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <PaymentButton styling={`${styles.payButton}`} />
+                                <PaymentButton cartId={cartId} totalPrice={totalPrice} styling={`${styles.payButton}`} />
                             </>
                         ) : (
                             <>
