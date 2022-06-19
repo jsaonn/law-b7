@@ -27,7 +27,7 @@ const Order = () => {
         }
         
         if(dataOrder.status == "Pesanan selesai") {
-            apiGetDeliveryById(idOrder).then((result) => {
+            apiGetDeliveryById(currentUserID).then((result) => {
                 let objOrder = {
                     status: result.status
                 }
