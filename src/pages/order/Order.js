@@ -25,7 +25,15 @@ const Order = () => {
         if(!dataOrder.length && !isDataFetched ) {
             getDataOrder();
         }
-
+        
+        if(dataOrder.status == "Pesanan selesai") {
+            apiGetDeliveryById(idOrder).then((result) => {
+                let objOrder = {
+                    status: result.status
+                }
+                setDataOrder(objOrder)
+            })
+        }
 
     }, [dataOrder, isDataFetched]);
 
